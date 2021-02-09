@@ -1,21 +1,17 @@
 import React from 'react';
+import './index.css';
 
-class Navbar extends React.Component {
+class MyNavbar extends React.Component {
 
     render() {
         return (
-            <Navbar>
-                <Navbar.Brand href="#home">Navbar with text</Navbar.Brand>
-                <Navbar.Toggle />
-                <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text>
-                        Signed in as: <a href="#login">Mark Otto</a>
-                    </Navbar.Text>
-                </Navbar.Collapse>
-            </Navbar>
+            <header className='navbar'>
+                <div className='navbar__title navbar__item'>Welcome Peeyush</div>
+                <div className='navbar__item'>Home</div>
+            </header>
         );
     }
 
 }
 
-export default Navbar;
+export default MyNavbar;

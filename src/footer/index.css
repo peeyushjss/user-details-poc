@@ -1,0 +1,11 @@
+.copyright {
+    padding         : 25px 0;
+    background-color: #444444;
+}
+
+.copyright span {
+    color             : white;
+    -webkit-transition: all 0.3s linear;
+    -o-transition     : all 0.3s linear;
+    transition        : all 0.3s linear;
+}

@@ -10,7 +10,6 @@ class Login extends React.Component {
     }
 
     login() {
-        console.log(this.email.current.value);
         console.log(this.password.current.value);
     }
 
@@ -28,9 +27,6 @@ class Login extends React.Component {
             </div>
         )
     }
-
-
-
 
 }
 
