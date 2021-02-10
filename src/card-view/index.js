@@ -3,6 +3,10 @@ import { Card } from 'react-bootstrap';
 
 class MyCard extends React.Component {
 
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
             <div>

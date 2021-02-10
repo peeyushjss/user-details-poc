@@ -1,14 +1,36 @@
 import React from 'react';
 import { Table } from "react-bootstrap";
+import axios from "axios";
 
 class AdminDashboardList extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            userDetails: []
+        }
+    }
+
+    getUserDetails = () => {
+        axios.get('https://reqres.in/api/users?page=1').then(res => {
+            if (res.status === 200) {
+                this.setState({
+                    userDetails: res.data.data
+                });
+            }
+        }).catch(error => console.log("Error: ", error));
+    }
+
+    componentDidMount() {
+        this.getUserDetails();
+    }
 
     render() {
         return (
             <Table striped bordered hover>
                 <thead>
-                    <tr>
-                        <th>#</th>
+                    <tr style={{ "textAlign": "center" }}>
+                        <th>Id</th>
                         <th>Name</th>
                         <th>Phone</th>
                         <th>Mobile</th>
@@ -16,31 +38,20 @@ class AdminDashboardList extends React.Component {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Peeyush Kumar</td>
-                        <td>N/A</td>
-                        <td>N/A</td>
-                        <td>peeyush.kumar@infogain.com</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Divyansh Kumar</td>
-                        <td>N/A</td>
-                        <td>N/A</td>
-                        <td>divyansh.kumar@infogain.com</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Anurag Kumar</td>
-                        <td>N/A</td>
-                        <td>N/A</td>
-                        <td>anurag.kumar@infogain.com</td>
-                    </tr>
-
+                    {this.state.userDetails.map(
+                        (userDetail, index) => {
+                            return <tr key={index}>
+                                <td>{userDetail.id}</td>
+                                <td>{userDetail.first_name} {userDetail.last_name}</td>
+                                <td>{userDetail.phone ? userDetail.phone : "NA"}</td>
+                                <td>{userDetail.mobile ? userDetail.mobile : "NA"}</td>
+                                <td>{userDetail.email}</td>
+                            </tr>
+                        }
+                    )}
                 </tbody>
             </Table>
-        );
+        )
     }
 
 }
