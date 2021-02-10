@@ -1,27 +1,19 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 
-class MyCard extends React.Component {
-
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return (
-            <div>
-                <Card style={{ width: '18rem' }}>
-                    <Card.Body>
-                        <Card.Title>Name - Peeyush Kumar</Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted">Email: </Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted">Mobile: </Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted">Phone: </Card.Subtitle>
-                    </Card.Body>
-                </Card>
-            </div>
-        );
-    }
-
+const MyCard = (props) => {
+    return (
+        <div>
+            <Card>
+                <Card.Body>
+                    <Card.Title>Name - Peeyush Kumar</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">Email: {props.email}</Card.Subtitle>
+                    <Card.Subtitle className="mb-2 text-muted">Mobile: {props.mobile ? props.mobile : "NA"}</Card.Subtitle>
+                    <Card.Subtitle className="mb-2 text-muted">Phone: {props.phone ? props.phone : "NA"}</Card.Subtitle>
+                </Card.Body>
+            </Card>
+        </div>
+    );
 }
 
 export default MyCard;

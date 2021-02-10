@@ -39,6 +39,10 @@ function App() {
             <MyNavbar />
             <AdminDashboardList />
           </Route>
+          <Route path="/dashboard-tile">
+            <MyNavbar />
+            <AdminDashboardTile />
+          </Route>
           <Route path="/userdetails">
             <UserDetails />
           </Route>
