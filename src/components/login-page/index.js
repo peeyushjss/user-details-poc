@@ -54,12 +54,6 @@ class Login extends React.Component {
                     }
                     return errors;
                 }}
-                // onSubmit={(values, { setSubmitting }) => {
-                //     setTimeout(() => {
-                //         console.log("Logging in", values);
-                //         setSubmitting(false);
-                //     }, 500);
-                // }}
                 validationSchema={Yup.object().shape({
                     password: Yup.string()
                         .required("No password provided!")

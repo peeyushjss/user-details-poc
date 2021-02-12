@@ -1,12 +1,11 @@
 import React from 'react';
+import { Table } from "react-bootstrap";
 import axios from "axios";
-import MyCard from '../card-view/index';
 import ListIcon from '@material-ui/icons/List';
 import { Dropdown } from 'react-bootstrap';
 import ViewModuleIcon from '@material-ui/icons/ViewModule';
-import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
-class AdminDashboardTile extends React.Component {
+class AdminDashboardList extends React.Component {
 
     constructor(props) {
         super(props);
@@ -31,17 +30,22 @@ class AdminDashboardTile extends React.Component {
 
     /* Method to perform searching */
     filterSearch = (e) => {
+
+        // if (e.target.value.length) {
         let searchedValue = this.state.userDetails.filter((element) => {
             return (element.first_name.indexOf(e.target.value) !== -1);
         });
         this.setState({
             userDetails: searchedValue
         });
+        // } else {
+        //     console.log(" no", this.state.userDetails);
+        // }
     }
 
     /* Method to perform sorting by name */
     sortByName = () => {
-        let sortedName = this.state.userDetails.sort(function (a, b) {
+        let sortedName = this.state.userDetails.sort((a, b) => {
             return a.first_name.localeCompare(b.first_name);
         });
         this.setState({
@@ -49,15 +53,18 @@ class AdminDashboardTile extends React.Component {
         });
     }
 
-    /* Method to perform sorting by DOB */
-    sortByDOB = () => {
-
+    /* Method to perform sorting by Email */
+    sortByEmail = () => {
+        let sortedEmail = this.state.userDetails.sort((a, b) => {
+            return a.email.localeCompare(b.email);
+        });
+        this.setState({
+            userDetails: sortedEmail
+        });
     }
 
     render() {
         return (
-            // <div>
-            //     {this.state.userDetails.map((userDetail, index) => {
             <div className="container-fluid" style={{ marginTop: '3em' }}>
                 <div className="row">
                     <div className="col-sm-12 col-md-4">
@@ -89,7 +96,7 @@ class AdminDashboardTile extends React.Component {
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu>
                                         <Dropdown.Item href="" onClick={this.sortByName}>Name</Dropdown.Item>
-                                        <Dropdown.Item href="" onClick={this.sortByDOB}>DOB</Dropdown.Item>
+                                        <Dropdown.Item href="" onClick={this.sortByEmail}>Email</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
                             </div>
@@ -98,35 +105,36 @@ class AdminDashboardTile extends React.Component {
                 </div>
                 < br />
                 <div className="row">
-                    <div className="col-sm-12 col-md-4">
-                        <MyCard />
-                    </div>
-                    <div className="col-sm-12 col-md-4">
-                        <MyCard />
-                    </div>
-                    <div className="col-sm-12 col-md-4">
-                        <MyCard />
-                    </div>
-                </div>
-                < br />
-                <div className="row">
-                    <div className="col-sm-12 col-md-4">
-                        <MyCard />
-                    </div>
-                    <div className="col-sm-12 col-md-4">
-                        <MyCard />
-                    </div>
-                    <div className="col-sm-12 col-md-4">
-                        <MyCard />
-                    </div>
+                    <Table style={{ "textAlign": "center" }} striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Mobile</th>
+                                <th>Email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.userDetails.map(
+                                (userDetail, index) => {
+                                    return <tr key={index}>
+                                        <td>{userDetail.id}</td>
+                                        <td>{userDetail.first_name} {userDetail.last_name}</td>
+                                        <td>{userDetail.phone ? userDetail.phone : "NA"}</td>
+                                        <td>{userDetail.mobile ? userDetail.mobile : "NA"}</td>
+                                        <td>{userDetail.email}</td>
+                                    </tr>
+                                }
+                            )}
+                        </tbody>
+                    </Table>
                 </div>
             </div>
-            //     })}
-            // </div>
 
-        );
+        )
     }
 
 }
 
-export default AdminDashboardTile;
+export default AdminDashboardList;

@@ -7,12 +7,12 @@ import {
 
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import Login from "./login-page/index";
-import MyNavbar from "./navbar/index";
-import AdminDashboardList from './admin-dashboard-listview/index';
-import AdminDashboardTile from './admin-dashboard-tileview/index';
-import Footer from './footer/index';
-import UserDetails from "./user-details/index";
+import Login from "./components/login-page/index";
+import MyNavbar from "./components/navbar/index";
+import AdminDashboardList from './components/admin-dashboard-listview/index';
+import AdminDashboardTile from './components/admin-dashboard-tileview/index';
+import Footer from './components/footer/index';
+import UserDetails from "./components/user-details/index";
 
 function App() {
   return (
