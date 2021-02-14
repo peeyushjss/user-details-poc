@@ -1,5 +1,6 @@
 import React from 'react';
-import { Table } from "react-bootstrap";
+import { Table } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import axios from "axios";
 import ListIcon from '@material-ui/icons/List';
 import { Dropdown } from 'react-bootstrap';
@@ -12,32 +13,31 @@ class AdminDashboardList extends React.Component {
         this.state = {
             userDetails: []
         }
-    }
-
-    getUserDetails = () => {
-        axios.get('https://reqres.in/api/users?page=1').then(res => {
-            if (res.status === 200) {
-                this.setState({
-                    userDetails: res.data.data
-                });
-            }
-        }).catch(error => console.log("Error: ", error));
+        /* Redirect to homepage, if user is not logged in */
+        // if (!localStorage.getItem('userEmail')) {
+        //     window.location = "/";
+        // }
     }
 
     componentDidMount = () => {
-        this.getUserDetails();
+        this.props.getUserData();
     }
 
     /* Method to perform searching */
     filterSearch = (e) => {
 
-        // if (e.target.value.length) {
-        let searchedValue = this.state.userDetails.filter((element) => {
-            return (element.first_name.indexOf(e.target.value) !== -1);
-        });
-        this.setState({
-            userDetails: searchedValue
-        });
+        // this.mySearch(e.target.value);
+
+        // // if (e.target.value.length) {
+        // let searchedValue = this.state.userDetails.filter((element) => {
+        //     return (element.first_name.indexOf(e.target.value) !== -1);
+        // });
+        // this.props.usrDetails = searchedValue;
+
+
+        // this.setState({
+        //     userDetails: searchedValue
+        // });
         // } else {
         //     console.log(" no", this.state.userDetails);
         // }
@@ -45,22 +45,12 @@ class AdminDashboardList extends React.Component {
 
     /* Method to perform sorting by name */
     sortByName = () => {
-        let sortedName = this.state.userDetails.sort((a, b) => {
-            return a.first_name.localeCompare(b.first_name);
-        });
-        this.setState({
-            userDetails: sortedName
-        });
+        this.props.sortByName();
     }
 
     /* Method to perform sorting by Email */
     sortByEmail = () => {
-        let sortedEmail = this.state.userDetails.sort((a, b) => {
-            return a.email.localeCompare(b.email);
-        });
-        this.setState({
-            userDetails: sortedEmail
-        });
+        this.props.sortByEmail();
     }
 
     render() {
@@ -116,7 +106,7 @@ class AdminDashboardList extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.userDetails.map(
+                            {this.props.usrDetails.map(
                                 (userDetail, index) => {
                                     return <tr key={index}>
                                         <td>{userDetail.id}</td>
@@ -131,10 +121,31 @@ class AdminDashboardList extends React.Component {
                     </Table>
                 </div>
             </div>
-
         )
     }
 
 }
 
-export default AdminDashboardList;
+const mapStateToProps = state => {
+    return {
+        usrDetails: [...state.userDetails]
+    };
+}
+
+const mapDispatchtoProps = dispatch => {
+    return {
+        getUserData: () => {
+            axios.get('https://reqres.in/api/users?page=1').then(res => {
+                dispatch({ type: 'GETUSERDATA', userDetails: res.data.data });
+            });
+        },
+        sortByEmail: () => {
+            dispatch({ type: 'SORTBYEMAIL' })
+        },
+        sortByName: () => {
+            dispatch({ type: 'SORTBYNAME' })
+        }
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchtoProps)(AdminDashboardList);

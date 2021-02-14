@@ -3,34 +3,22 @@ import { Formik } from "formik";
 import * as Yup from "yup"; // used when validating with a pre-built solution
 import "./index.css";
 import {
-    BrowserRouter as Router,
+    BrowserRouter,
     Switch,
     Route,
     Link,
     Redirect
 } from 'react-router-dom';
-import AdminDashboardList from "../admin-dashboard-listview/index";
+// import AdminDashboardList from "../admin-dashboard-listview/index";
 
 
 class Login extends React.Component {
 
     login = (values) => {
         alert(" You are login successfully!");
-        localStorage.setItem('username', values.email);
-        // <Link to="/userdetails">
-        // </Link>
-        // <Route>
-        //     <Redirect to="/dashboard-list"></Redirect>
-        // </Route>
-        // <Router>
-        // <div>
-        //     <Switch>
-        //         <Route path="/dashboard-list" component={AdminDashboardList}>
-        //         </Route>
-        //     </Switch>
-        // </div>
-        {/* </Router> */ }
-
+        localStorage.setItem('userEmail', values.email);
+        window.location = "/dashboard-list";
+        // <Redirect to="/dashboard-list" />
     }
 
     render() {
@@ -54,12 +42,14 @@ class Login extends React.Component {
                     }
                     return errors;
                 }}
-                validationSchema={Yup.object().shape({
-                    password: Yup.string()
-                        .required("No password provided!")
-                        .min(8, "Password is too short - should be 8 chars minimum!")
-                        .matches(/(?=.*[0-9])/, "Password must contain a number!")
-                })}
+                validationSchema={
+                    Yup.object().shape({
+                        password: Yup.string()
+                            .required("No password provided!")
+                            .min(8, "Password is too short - should be 8 chars minimum!")
+                            .matches(/(?=.*[0-9])/, "Password must contain a number!")
+                    })
+                }
             >
                 { props => {
                     const {
@@ -106,8 +96,6 @@ class Login extends React.Component {
 
             </Formik >
         );
-
-
 
     }
 

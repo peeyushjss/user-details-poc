@@ -2,7 +2,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  Redirect
 } from "react-router-dom";
 
 import './App.css';
@@ -31,24 +32,23 @@ function App() {
             </li>
           </ul>
         </nav> */}
-
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
+  
         <Switch>
-          <Route path="/dashboard-list">
+          <Route exact path="/dashboard-list">
             <MyNavbar />
             <AdminDashboardList />
           </Route>
-          <Route path="/dashboard-tile">
+          <Route exact path="/dashboard-tile">
             <MyNavbar />
             <AdminDashboardTile />
           </Route>
-          <Route path="/userdetails">
+          <Route exact path="/userdetails">
             <UserDetails />
           </Route>
-          <Route path="/">
+          <Route exact path="/">
             <Login />
           </Route>
+          <Redirect to="/" />
         </Switch>
       </div>
     </Router>
